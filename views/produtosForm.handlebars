@@ -1,0 +1,29 @@
+<form action ="/salvaProduto" method="POST"> 
+    <table>
+        <tr> 
+            <td>Nome do Produto: </td>
+            <td><input type="text" name="produtoNome" value="{{dataValues.nome}}"> </td>
+        </tr>
+        <tr> 
+            <td>Valor do Produto: </td>
+            <td><input type="number" name="produtoValor" value="{{dataValues.valor}}"> </td>
+        </tr>
+        <tr> 
+            <td>Imagem do Produto: </td>
+            <td><input type="file" name="produtoImg"> </td>
+        </tr>
+        <tr> 
+            <td>Quantidade em estoque: </td>
+            <td><input type="number" name="produtoEstoque" value="{{dataValues.quantidade}}"> </td>
+        </tr>
+        <tr> 
+            <td>
+                <input type="submit" value="Salvar">
+                <input type="hidden" name ="produtoId" value="{{dataValues.id}}">
+            </td>
+        </tr>
+
+
+    </table>
+
+</form>

@@ -1,0 +1,23 @@
+<h1> SGV - SISTEMA DE GERENCIAMENTO DE VENDAS </h1>
+    <h2> Estudos de node.js </h2>
+
+<table>
+    <tr>
+        <td>
+            <a href="./produtosForm">
+                <button type="button" name="cadastrarProduto" value="Cadastrar Produto"> Cadastrar Produto </button>
+            </a>
+        </td>
+    </tr>
+    {{#each produtosList}}
+        <tr>
+            <td>{{dataValues.nome}} </td>    
+            <td>{{dataValues.valor}} </td>
+            <td>
+                <a href="./produtosForm/{{dataValues.id}}">
+                    <button type="button" name="Editar" value="Editar"> Editar </button>
+                </a> 
+            </td>
+        </tr>
+    {{/each}}
+</table>
