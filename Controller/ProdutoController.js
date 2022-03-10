@@ -1,3 +1,5 @@
+const req = require('express/lib/request');
+const res = require('express/lib/response');
 var produto = require('../Model/Produto');
 
 var validaDados = function(dados) {
@@ -10,11 +12,11 @@ var validaDados = function(dados) {
     return true;
 };
 
-var insertProduto = function(dados) {
+var insertProduto = async function(dados) {
     console.log(dados);
     if(validaDados(dados)) {
         if(dados.produtoId == null || dados.produtoId == "") {
-            produto.create({
+            return await produto.create({
                 nome: dados.produtoNome,
                 valor: dados.produtoValor,
                 quantidade: dados.produtoEstoque,
@@ -25,20 +27,22 @@ var insertProduto = function(dados) {
                 return erro;
             });
         } else {
-            produto.update({
+            return await produto.update({
                 nome: dados.produtoNome,
                 valor: dados.produtoValor,
                 quantidade: dados.produtoEstoque,
-                imagem: dados.produtoImg
             }, {
                 where: {
-                    _id: dados.produtoId
+                    id: dados.produtoId
                 }
             }).then(function() {
+                console.log("update com sucesso!");
                 return true;
             }).catch(function(erro){
+                console.log("problema no update. Erro: "+erro);
                 return erro;
             });
+            
         }
     } else {
         return false;
@@ -46,12 +50,12 @@ var insertProduto = function(dados) {
 
 }
 
-var listaProdutos = function() {
-    return produto.findAll();
+var listaProdutos = async function() {
+    return await produto.findAll({order: [['nome', 'DESC']]});
 }
 
-var buscaProduto = function(id) {
-    return produto.findByPk(id);
+var buscaProduto = async function(id) {
+    return await produto.findByPk(id);
 }
 
 module.exports = {

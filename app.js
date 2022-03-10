@@ -42,15 +42,13 @@ webServer.get('/produtosForm/:id', function(req, res){
   })
 });
 
-webServer.post('/salvaProduto', function(req, res) {
-  var insertStatus = produtoController.insertProduto(req.body);
-  console.log(insertStatus);
-  if(insertStatus != true) {
-    res.render('errorStat', insertStatus);
-  }else{
+webServer.post('/salvaProduto', async function(req, res) {
+  var insertStatus = await produtoController.insertProduto(req.body);
+  if(insertStatus == true) {
     res.redirect('/');
+  } else {
+    res.render('errorStat', insertStatus);
   }
-  
 });
 
 webServer.get("/user/:nome", function(req, res){
