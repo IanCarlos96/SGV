@@ -5,25 +5,25 @@ var produtoController = require('../../Controller/ProdutoController');
 
 router.get('/', function(req, res){
     produtoController.listaProdutos().then(function(produtosList) {
-      res.render('index', {produtosList: produtosList });
+      res.render('Produtos/index', {produtosList: produtosList });
     });
   });
   
 
 router.get('/produtosForm', function(req, res){
-    res.render('produtosForm');
+    res.render('Produtos/produtosForm');
 });
 
 router.get('/produtosForm/:id', function(req, res){
     produtoController.buscaProduto(req.params.id).then(function(produto) {
-        res.render('produtosForm', produto);
+        res.render('Produtos/produtosForm', produto);
     })
 });
 
 router.post('/salvaProduto', async function(req, res) {
     var insertStatus = await produtoController.insertProduto(req.body);
     if(insertStatus == true) {
-        res.redirect('/');
+        res.redirect('/index');
     } else {
         res.render('errorStat', insertStatus);
     }

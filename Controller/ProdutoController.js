@@ -51,6 +51,7 @@ var insertProduto = async function(dados) {
 }
 
 var listaProdutos = async function() {
+    //ASC ou DESC
     return await produto.findAll({order: [['nome', 'DESC']]});
 }
 

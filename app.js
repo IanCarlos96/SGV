@@ -8,6 +8,8 @@ const webServerExpress = require('express');
 const bodyParser = require('body-parser');
 
 const produtoRoutes = require('./Routes/Produtos/produtosRoutes');
+const loginRoutes = require('./Routes/Login/LoginRoutes');
+
 
 //Config
   //WebServer
@@ -25,6 +27,7 @@ const produtoRoutes = require('./Routes/Produtos/produtosRoutes');
     
 
 //Routing
+  webServer.use('/', loginRoutes);
   webServer.use('/produtos', produtoRoutes);
 
 webServer.get("/user/:nome", function(req, res){
