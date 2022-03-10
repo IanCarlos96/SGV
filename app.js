@@ -7,6 +7,8 @@ const {engine} = require("express-handlebars");
 const webServerExpress = require('express');
 const bodyParser = require('body-parser');
 
+const produtoRoutes = require('./Routes/Produtos/produtosRoutes');
+
 //Config
   //WebServer
     const webServer = webServerExpress();
@@ -20,36 +22,10 @@ const bodyParser = require('body-parser');
   //database
     const sequelize = require('./Utils/databaseConnection');
   
-    var produtoController = require('./Controller/ProdutoController');
+    
 
 //Routing
-webServer.get('/', function(req, res){
-  produtoController.listaProdutos().then(function(produtosList) {
-    //console.log(produtosList);
-    res.render('index', {produtosList: produtosList });
-  });
-  //res.render('index');
-});
-
-webServer.get('/produtosForm', function(req, res){
-  res.render('produtosForm');
-});
-
-webServer.get('/produtosForm/:id', function(req, res){
-  produtoController.buscaProduto(req.params.id).then(function(produto) {
-    //console.log(produto);
-    res.render('produtosForm', produto);
-  })
-});
-
-webServer.post('/salvaProduto', async function(req, res) {
-  var insertStatus = await produtoController.insertProduto(req.body);
-  if(insertStatus == true) {
-    res.redirect('/');
-  } else {
-    res.render('errorStat', insertStatus);
-  }
-});
+  webServer.use('/produtos', produtoRoutes);
 
 webServer.get("/user/:nome", function(req, res){
   res.send("Logged as " + req.params.nome);
