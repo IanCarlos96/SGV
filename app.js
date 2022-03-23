@@ -6,6 +6,8 @@
 const {engine} = require("express-handlebars");
 const webServerExpress = require('express');
 const bodyParser = require('body-parser');
+const path = require("path");
+
 
 const produtoRoutes = require('./Routes/Produtos/produtosRoutes');
 const loginRoutes = require('./Routes/Login/LoginRoutes');
@@ -23,6 +25,8 @@ const loginRoutes = require('./Routes/Login/LoginRoutes');
     webServer.use(bodyParser.json());
   //database
     const sequelize = require('./Utils/databaseConnection');
+  //public
+    webServer.use(webServerExpress.static(path.join(__dirname, "public")));
   
     
 
